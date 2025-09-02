@@ -1,0 +1,111 @@
+:root {
+    --primary-color: #3f51b5;
+    --primary-hover: #303f9f;
+    --secondary-bg: #f5f5f5;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+    --header-bg: #e8eaf6;
+}
+
+
+
+.table-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.search-bar {
+    padding: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.service-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.service-table thead {
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    text-align: left;
+}
+
+.service-table th,
+.service-table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.service-table tbody tr:hover {
+    background-color: var(--secondary-bg);
+    transition: background-color 0.3s;
+}
+
+.loading-state,
+.no-data-state {
+    text-align: center;
+    padding: 40px;
+    font-style: italic;
+    color: #757575;
+}
+
+.pagination-controls {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.pagination-controls button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid var(--primary-color);
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s, opacity 0.3s;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .service-table {
+        min-width: 700px;
+    }
+}
