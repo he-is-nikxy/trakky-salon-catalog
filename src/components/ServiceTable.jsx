@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './ServiceTable.css';
 
-// const API_BASE_URL = "http://20.193.149.47:2242/salons/service/";
+const API_BASE_URL = "http://20.193.149.47:2242/salons/service/";
 // const API_BASE_URL = "http://20.193.149.47:2242/salons/service/";
 
 const ServiceTable = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  // const [currentPage, setCurrentPage] = useState(API_BASE_URL);
+  const [currentPage, setCurrentPage] = useState(API_BASE_URL);
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
 
@@ -36,20 +36,25 @@ const ServiceTable = () => {
   // }, []);
 
   const fetchData = async () => {
-    const res = await fetch('http://20.193.149.47:2242/salons/service/')
-    const data = await res.json()
-    // console.log(data)
-    setTest(data)
-    setServices(data.results || []);
-    setNextPage(data.next);
-    setPrevPage(data.previous);
-    setLoading(false);
+    setLoading(true);
+    try {
+      const res = await fetch('http://20.193.149.47:2242/salons/service/')
+      const data = await res.json()
+      // console.log(data)
+      setTest(data)
+      setServices(data.results || []);
+      setNextPage(data.next);
+      setPrevPage(data.previous);
+      setLoading(false);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
 
   useEffect(() => {
-    fetchData(test);
+    fetchData(currentPage);
   }, []);
   // }, []);
 
@@ -94,31 +99,13 @@ const ServiceTable = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {loading ? (
-              <tr>
-                <td colSpan="5" className="loading-state">Loading...</td>
-              </tr>
-            ) : filteredServices.length > 0 ? (
-              filteredServices.map(service => (
-                <tr key={service.id}>
-                  <td>{service.id}</td>
-                  <td>{service.service_name}</td>
-                  <td>{service.category_name}</td>
-                  <td>{service.description}</td>
-                  <td>₹{service.price}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5" className="no-data-state">No Data Available</td>
-              </tr>
-            )} */}
+
             {loading ? (
               <tr>
                 <td colSpan="5" className="loading-state">Loading...</td>
               </tr>
             ) :
-              test.length < 0 ? (
+              filteredServices.length < 0 ? (
                 <tr>
                   <td colSpan="5" className="no-data-state">No Data Available</td>
                 </tr>
@@ -137,15 +124,15 @@ const ServiceTable = () => {
         </table>
         <div className="pagination-controls">
           <button
-            // onClick={() => setCurrentPage(prevPage)}
-            onClick={() => setTest(prevPage)}
+            onClick={() => setCurrentPage(prevPage)}
+            // onClick={() => setTest(prevPage)}
             disabled={!prevPage || loading}
           >
             Previous
           </button>
           <button
-            // onClick={() => setCurrentPage(nextPage)}
-            onClick={() => setTest(nextPage)}
+            onClick={() => setCurrentPage(nextPage)}
+            // onClick={() => setTest(nextPage)}
             disabled={!nextPage || loading}
           >
             Next
